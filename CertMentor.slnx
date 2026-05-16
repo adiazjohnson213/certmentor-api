@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="CertMentor.API/CertMentor.API.csproj" />
+  <Project Path="CertMentor.Application/CertMentor.Application.csproj" />
+  <Project Path="CertMentor.Domain/CertMentor.Domain.csproj" />
+  <Project Path="CertMentor.Infrastructure/CertMentor.Infrastructure.csproj" />
+  <Project Path="CertMentor.Tests/CertMentor.Tests.csproj" />
+</Solution>
