@@ -1,4 +1,4 @@
-﻿namespace CertMentor.Domain.Entities
+﻿namespace CertMentor.Domain.Entities.Catalog
 {
     public class Topic
     {
