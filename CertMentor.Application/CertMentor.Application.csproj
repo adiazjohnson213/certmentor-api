@@ -10,4 +10,11 @@
     <ProjectReference Include="..\CertMentor.Domain\CertMentor.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DTOs\Catalog\" />
+    <Folder Include="DTOs\Exam\" />
+    <Folder Include="Services\Catalog\" />
+    <Folder Include="Services\Exam\" />
+  </ItemGroup>
+
 </Project>
