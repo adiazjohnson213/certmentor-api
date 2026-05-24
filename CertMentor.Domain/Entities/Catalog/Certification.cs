@@ -24,5 +24,15 @@
                 Name = name
             };
         }
+
+        public void AddSkillArea(SkillArea skillArea)
+        {
+            ArgumentNullException.ThrowIfNull(skillArea, nameof(skillArea));
+            if (_skillAreas.Any(sa => sa.Name.Equals(skillArea.Name, StringComparison.OrdinalIgnoreCase)))
+            {
+                throw new InvalidOperationException($"Skill area with name '{skillArea.Name}' already exists for this certification.");
+            }
+            _skillAreas.Add(skillArea);
+        }
     }
 }
