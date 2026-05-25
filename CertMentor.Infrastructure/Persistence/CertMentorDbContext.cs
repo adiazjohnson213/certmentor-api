@@ -2,6 +2,7 @@
 using CertMentor.Domain.Entities.Catalog;
 using CertMentor.Domain.Entities.Exam;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace CertMentor.Infrastructure.Persistence
 {
@@ -26,6 +27,12 @@ namespace CertMentor.Infrastructure.Persistence
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            var stringListComparer = new ValueComparer<List<string>>(
+                (c1, c2) => c1!.SequenceEqual(c2!),
+                c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())),
+                c => c.ToList());
+
             modelBuilder.Entity<Certification>(c =>
             {
                 c.ToTable("Certifications");
@@ -54,18 +61,24 @@ namespace CertMentor.Infrastructure.Persistence
                 eq.ToTable("ExamQuestions");
                 eq.Property(eq => eq.Type).HasConversion<string>().HasColumnType("nvarchar(20)");
                 eq.Property(eq => eq.Question).HasColumnType("nvarchar(1000)");
+                eq.HasOne(e => e.Topic)
+                  .WithMany()
+                  .HasForeignKey(e => e.TopicId)
+                  .OnDelete(DeleteBehavior.NoAction);
                 eq.Property<List<string>>("_answers")
                     .HasColumnName("Answers")
                     .HasConversion(
                         v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null!),
                         v => JsonSerializer.Deserialize<List<string>>(v, (JsonSerializerOptions)null!) ?? new List<string>())
-                    .HasColumnType("nvarchar(max)");
+                    .HasColumnType("nvarchar(max)")
+                    .Metadata.SetValueComparer(stringListComparer);
                 eq.Property<List<string>>("_correctAnswers")
                     .HasColumnName("CorrectAnswers")
                     .HasConversion(
                         v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null!),
                         v => JsonSerializer.Deserialize<List<string>>(v, (JsonSerializerOptions)null!) ?? new List<string>())
-                    .HasColumnType("nvarchar(max)");
+                    .HasColumnType("nvarchar(max)")
+                    .Metadata.SetValueComparer(stringListComparer);
             });
             modelBuilder.Entity<UserAnswer>(ua =>
             {
@@ -76,7 +89,8 @@ namespace CertMentor.Infrastructure.Persistence
                     .HasConversion(
                         v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null!),
                         v => JsonSerializer.Deserialize<List<string>>(v, (JsonSerializerOptions)null!) ?? new List<string>())
-                    .HasColumnType("nvarchar(max)");
+                    .HasColumnType("nvarchar(max)")
+                    .Metadata.SetValueComparer(stringListComparer);
             });
             modelBuilder.Entity<PerformanceRecord>(pr =>
             {
@@ -85,10 +99,18 @@ namespace CertMentor.Infrastructure.Persistence
             modelBuilder.Entity<SkillAreaScore>(sas =>
             {
                 sas.ToTable("SkillAreaScores");
+                sas.HasOne(s => s.SkillArea)
+                   .WithMany()
+                   .HasForeignKey(s => s.SkillAreaId)
+                   .OnDelete(DeleteBehavior.NoAction);
             });
             modelBuilder.Entity<StudyPlan>(sp =>
             {
                 sp.ToTable("StudyPlans");
+                sp.HasOne(sp => sp.Certification)
+                  .WithMany()
+                  .HasForeignKey(sp => sp.CertificationId)
+                  .OnDelete(DeleteBehavior.NoAction);
             });
             modelBuilder.Entity<StudyPlanItem>(spi =>
             {
