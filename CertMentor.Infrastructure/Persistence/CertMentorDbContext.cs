@@ -44,6 +44,7 @@ namespace CertMentor.Infrastructure.Persistence
             {
                 sa.ToTable("SkillAreas");
                 sa.Property(sa => sa.Name).HasColumnType("nvarchar(100)");
+                sa.Property(sa => sa.IsActive).HasDefaultValue(true);
             });
             modelBuilder.Entity<Topic>(t =>
             {
