@@ -34,5 +34,27 @@
             }
             _skillAreas.Add(skillArea);
         }
+
+        public void Update(string name, IReadOnlyCollection<string> skillAreas)
+        {
+            ArgumentException.ThrowIfNullOrWhiteSpace(name, nameof(name));
+            Name = name;
+            foreach (var existing in _skillAreas)
+            {
+                if (!skillAreas.Any(sa => sa.Equals(existing.Name, StringComparison.OrdinalIgnoreCase)))
+                    existing.Deactivate();
+            }
+
+            foreach (var skillArea in skillAreas)
+            {
+                if (!_skillAreas.Any(sa => sa.Name.Equals(skillArea, StringComparison.OrdinalIgnoreCase)))
+                    _skillAreas.Add(SkillArea.Create(skillArea));
+            }
+        }
+
+        public void Deactivate()
+        {
+            IsActive = false;
+        }
     }
 }

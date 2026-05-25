@@ -8,6 +8,7 @@
         public string Name { get; private set; } = string.Empty;
         public int? LowestWeightPercentage { get; private set; }
         public int? HighestWeightPercentage { get; private set; }
+        public bool IsActive { get; private set; } = true;
         public int CertificationId { get; private set; }
         public Certification Certification { get; private set; } = null!;
 
@@ -37,6 +38,11 @@
                 LowestWeightPercentage = lowestWeightPercentage,
                 HighestWeightPercentage = highestWeightPercentage
             };
+        }
+
+        public void Deactivate()
+        {
+            IsActive = false;
         }
     }
 }
