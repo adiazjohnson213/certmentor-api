@@ -13,12 +13,12 @@ namespace CertMentor.Infrastructure.Repositories.Catalog
 
         public async Task<IReadOnlyCollection<Certification>> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            return (await _certMentorDbContext.Certifications.AsNoTracking().ToListAsync(cancellationToken)).AsReadOnly();
+            return (await _certMentorDbContext.Certifications.Include(c => c.SkillAreas).AsNoTracking().ToListAsync(cancellationToken)).AsReadOnly();
         }
 
         public async Task<Certification?> GetByCodeAsync(string code, CancellationToken cancellationToken = default)
         {
-            return await _certMentorDbContext.Certifications.SingleOrDefaultAsync(c => c.Code == code, cancellationToken);
+            return await _certMentorDbContext.Certifications.Include(c => c.SkillAreas).SingleOrDefaultAsync(c => c.Code == code, cancellationToken);
         }
     }
 }

@@ -7,7 +7,6 @@ namespace CertMentor.Infrastructure.ExternalServices.MicrosoftLearn.Clients
 {
     public class MicrosoftLearnClient : IMicrosoftLearnClient
     {
-        private const string BaseUrl = "https://learn.microsoft.com/api/catalog";
         private readonly HttpClient _httpClient;
 
         public MicrosoftLearnClient(HttpClient httpClient)
@@ -16,7 +15,7 @@ namespace CertMentor.Infrastructure.ExternalServices.MicrosoftLearn.Clients
         }
         public async Task<IReadOnlyCollection<Certification>> GetCertificationsAsync(CancellationToken cancellationToken = default)
         {
-            var response = await _httpClient.GetAsync($"{BaseUrl}/?type=mergedCertifications", cancellationToken);
+            var response = await _httpClient.GetAsync("?type=mergedCertifications", cancellationToken);
             response.EnsureSuccessStatusCode();
 
             var catalogResponse = await response.Content.ReadFromJsonAsync<MicrosoftLearnCatalogResponse>(cancellationToken);
