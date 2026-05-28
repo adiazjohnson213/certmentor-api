@@ -2,7 +2,7 @@
 
 namespace CertMentor.Application.Interfaces.Catalog
 {
-    public interface ICertificationRepository
+    public interface ICertificationRepository : IRepository
     {
         Task<Certification?> GetByCodeAsync(string code, CancellationToken cancellationToken = default);
         Task<IReadOnlyCollection<Certification>> GetAllAsync(CancellationToken cancellationToken = default);

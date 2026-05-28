@@ -2,7 +2,7 @@
 
 namespace CertMentor.Application.Interfaces.Exam
 {
-    public interface IExamSessionRepository
+    public interface IExamSessionRepository : IRepository
     {
         Task<ExamSession?> GetByIdAsync(int id, CancellationToken cancellationToken = default);
         Task<IReadOnlyCollection<ExamSession>> GetByCertificationIdAsync(int certificationId, CancellationToken cancellationToken = default);
