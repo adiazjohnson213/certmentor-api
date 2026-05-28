@@ -2,7 +2,7 @@
 {
     public record SkillAreaResponse(
         string Name,
-        int LowestWeightPercentage,
-        int HighestWeightPercentage
+        int? LowestWeightPercentage,
+        int? HighestWeightPercentage
      );
 }

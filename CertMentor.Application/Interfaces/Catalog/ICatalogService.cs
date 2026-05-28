@@ -6,6 +6,6 @@ namespace CertMentor.Application.Interfaces.Catalog
     {
         Task<IReadOnlyCollection<CertificationResponse>> GetAllAsync(CancellationToken cancellationToken = default);
         Task<CertificationResponse> GetByCodeAsync(string certificationCode, CancellationToken cancellationToken = default);
-        Task SyncAsync(string certificationCode, CancellationToken cancellationToken = default);
+        Task SyncAsync(CancellationToken cancellationToken = default);
     }
 }
