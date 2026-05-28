@@ -36,14 +36,14 @@ namespace CertMentor.Infrastructure.Persistence
             modelBuilder.Entity<Certification>(c =>
             {
                 c.ToTable("Certifications");
-                c.Property(c => c.Code).HasColumnType("nvarchar(30)");
-                c.Property(c => c.Name).HasColumnType("nvarchar(100)");
+                c.Property(c => c.Code).HasColumnType("nvarchar(200)");
+                c.Property(c => c.Name).HasColumnType("nvarchar(300)");
                 c.Property(c => c.IsActive).HasDefaultValue(true);
             });
             modelBuilder.Entity<SkillArea>(sa =>
             {
                 sa.ToTable("SkillAreas");
-                sa.Property(sa => sa.Name).HasColumnType("nvarchar(100)");
+                sa.Property(sa => sa.Name).HasColumnType("nvarchar(300)");
                 sa.Property(sa => sa.IsActive).HasDefaultValue(true);
             });
             modelBuilder.Entity<Topic>(t =>
