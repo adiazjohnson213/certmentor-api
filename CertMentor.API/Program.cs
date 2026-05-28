@@ -1,5 +1,6 @@
 using CertMentor.Application.Interfaces.Catalog;
 using CertMentor.Application.Interfaces.Exam;
+using CertMentor.Application.Services.Catalog;
 using CertMentor.Infrastructure.ExternalServices.MicrosoftLearn.Clients;
 using CertMentor.Infrastructure.Persistence;
 using CertMentor.Infrastructure.Repositories.Catalog;
@@ -19,8 +20,8 @@ builder.Services.AddHttpClient<IMicrosoftLearnClient, MicrosoftLearnClient>(clie
 });
 
 // TODO: Register services when implemented
-// builder.Services.AddScoped<ICatalogService, CatalogService>();
 // builder.Services.AddScoped<IExamService, ExamService>();
+builder.Services.AddScoped<ICatalogService, CatalogService>();
 
 builder.Services.AddScoped<ICertificationRepository, CertificationRepository>();
 builder.Services.AddScoped<ISkillAreaRepository, SkillAreaRepository>();

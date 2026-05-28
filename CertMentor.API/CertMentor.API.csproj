@@ -24,8 +24,4 @@
     <ProjectReference Include="..\CertMentor.Infrastructure\CertMentor.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>
