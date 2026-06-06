@@ -38,6 +38,7 @@ namespace CertMentor.Infrastructure.Persistence
                 c.ToTable("Certifications");
                 c.Property(c => c.Code).HasColumnType("nvarchar(200)");
                 c.Property(c => c.Name).HasColumnType("nvarchar(300)");
+                c.Property(c => c.ExamDurationInMinutes).HasColumnType("tinyint");
                 c.Property(c => c.IsActive).HasDefaultValue(true);
             });
             modelBuilder.Entity<SkillArea>(sa =>

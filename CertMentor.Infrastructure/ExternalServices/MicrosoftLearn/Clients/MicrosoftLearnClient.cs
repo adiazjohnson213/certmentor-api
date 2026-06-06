@@ -25,9 +25,9 @@ namespace CertMentor.Infrastructure.ExternalServices.MicrosoftLearn.Clients
 
             var result = new List<Certification>();
 
-            foreach (var item in catalogResponse.Certifications.Where(c => c.Skills.Count > 0))
+            foreach (var item in catalogResponse.Certifications.Where(c => c.Skills.Count > 0 && c.ExamDurationInMinutes > 0))
             {
-                var certification = Certification.Create(item.UID, item.Title);
+                var certification = Certification.Create(item.UID, item.Title, item.ExamDurationInMinutes);
 
                 foreach (var skill in item.Skills)
                 {
